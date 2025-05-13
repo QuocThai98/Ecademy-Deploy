@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ecademy-backend
+    env: node
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: NODE_ENV
+        value: development
+      - key: MONGODB_URL
+        value: mongodb+srv://s3935748:duzF9abNcGRq8RhT@ecademy.cj68zsr.mongodb.net/
+      - key: FRONTEND_URL
+        value: https://ecademy-deploy.vercel.app
+      - key: PORT
+        value: 10000 

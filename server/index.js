@@ -27,7 +27,7 @@ connectDB();
 // Middleware
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://35.192.144.82",
+    origin: ["https://ecademy-deploy.vercel.app", "http://localhost:5173"],
     credentials: true,
   })
 )
