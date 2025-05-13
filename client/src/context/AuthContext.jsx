@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
             if (token && token !== "undefined" && token !== "null") {
                 console.log("🔐 Using session token...");
-                const { data } = await axios.get(`${BACKEND_URL}/users/autologin`, {
+                const { data } = await axios.get(`${BACKEND_URL}/auth/autologin`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 if (data.user) {
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
             }
 
             console.log("🍪 Checking auth via cookies...");
-            const { data } = await axios.get(`${BACKEND_URL}/users/autologin`, { withCredentials: true });
+            const { data } = await axios.get(`${BACKEND_URL}/auth/autologin`, { withCredentials: true });
             if (data.user) {
                 setUser(data.user);
             }
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
         try {
             sessionStorage.removeItem("token");
             document.cookie = "jwt=; path=/; domain=localhost; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-            const res = await axios.post(`${BACKEND_URL}/users/login`, formData, { withCredentials: true });
+            const res = await axios.post(`${BACKEND_URL}/auth/login`, formData, { withCredentials: true });
             if (!formData.rememberMe) {
                 sessionStorage.setItem("token", res.data.token);
             }
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     // Register function
     const register = async (formData) => {
         try {
-            await axios.post(`${BACKEND_URL}/users/register`, formData);
+            await axios.post(`${BACKEND_URL}/auth/register`, formData);
             window.location.href = "/login";
         } catch (err) {
             throw new Error(err.response?.data?.message || "Registration failed");
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
     // Logout function
     const logout = async () => {
         try {
-            await axios.post(`${BACKEND_URL}/users/logout`, {}, { withCredentials: true });
+            await axios.post(`${BACKEND_URL}/auth/logout`, {}, { withCredentials: true });
         } catch (error) {
             console.error("⚠️ Logout error:", error?.response?.data || error.message);
         }
