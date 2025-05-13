@@ -37,7 +37,7 @@ app.use(cookieParser());
 
 // API Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/users", authRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/question-sets", questionSetRoutes);
 app.use("/api/questions", questionRoutes);
 app.use("/api/tests", testRoutes);
